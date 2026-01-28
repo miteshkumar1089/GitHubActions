@@ -1,0 +1,24 @@
+name: Selenium Scheduled Tests
+
+on:
+  schedule:
+    # Runs every Saturday and Sunday at 10:00 AM IST
+    - cron: '30 4 * * 6,0'
+  workflow_dispatch:   # allows manual run also
+
+jobs:
+  selenium-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Run Selenium Tests
+        run: mvn clean test
